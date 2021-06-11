@@ -1,0 +1,30 @@
+{
+  "id": "2607809",
+  "name": "vue3_music_player",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "高仿网易云音乐",
+  "glyphs": [
+    {
+      "icon_id": "1188466",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
+      "icon_id": "7708046",
+      "name": "左箭头",
+      "font_class": "zuojiantou",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "12247925",
+      "name": "右箭头",
+      "font_class": "youjiantou",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    }
+  ]
+}
