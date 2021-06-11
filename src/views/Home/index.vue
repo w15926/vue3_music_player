@@ -4,10 +4,18 @@
 
     <div class="box-sidebar">
       <ul>
-        <li>发现音乐</li>
-        <li>推荐歌单</li>
-        <li>最新音乐</li>
-        <li>最新MV</li>
+        <li>
+          <router-link to="/discover">发现音乐</router-link>
+        </li>
+        <li>
+          <router-link to="/playlists">推荐歌单</router-link>
+        </li>
+        <li>
+          <router-link to="/songs">最新音乐</router-link>
+        </li>
+        <li>
+          <router-link to="/mvs">最新MV</router-link>
+        </li>
       </ul>
     </div>
     <div class="box-main">
@@ -35,26 +43,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container{
+.container {
   position: relative;
 
-  .box-sidebar{
+  .box-sidebar {
     width: 300px;
     height: 700px;
     background-color: wheat;
+
+    a.router-link-active{
+      color: #fff;
+      background-color: tomato;
+    }
   }
 
-  .box-main{
+  .box-main {
     position: absolute;
     top: 50px;
     right: 0;
-    
+
     width: 1140px;
     height: 700px;
     background-color: tan;
   }
 
-  .box-footer{
+  .box-footer {
     width: 100%;
     height: 50px;
     background-color: tomato;

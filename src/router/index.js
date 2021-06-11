@@ -10,12 +10,27 @@ const routes = [
     name: 'home',
     component: () => import('@/views/Home'),
     // redirect:'/home/discover',
-    meta: { title: '首页' },
     children: [
       {
         path: '/discover',
-        component: () => import('../views/Home/Children/Discover.vue')
-      }
+        component: () => import('../views/Home/Children/Discover.vue'),
+        meta: { title: '发现音乐' },
+      },
+      {
+        path: '/playlists',
+        component: () => import('../views/Home/Children/Playlists.vue'),
+        meta: { title: '推荐歌单' },
+      },
+      {
+        path: '/songs',
+        component: () => import('../views/Home/Children/Songs.vue'),
+        meta: { title: '最新音乐' },
+      },
+      {
+        path: '/mvs',
+        component: () => import('../views/Home/Children/Mvs.vue'),
+        meta: { title: '最新MV' },
+      },
     ]
   },
 
