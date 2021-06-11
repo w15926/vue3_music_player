@@ -31,6 +31,11 @@ const routes = [
         component: () => import('../views/Home/Children/Mvs.vue'),
         meta: { title: '最新MV' },
       },
+      {
+        path: '/resuly',
+        component: () => import('../views/Home/Children/Result.vue'),
+        meta: { title: '搜索结果' },
+      },
     ]
   },
 
@@ -39,6 +44,11 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.title) document.title = to.meta.title
+  next()
 })
 
 export default router
