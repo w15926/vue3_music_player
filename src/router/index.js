@@ -32,7 +32,7 @@ const routes = [
         meta: { title: '最新MV' },
       },
       {
-        path: '/resuly',
+        path: '/result',
         component: () => import('../views/Home/Children/Result.vue'),
         meta: { title: '搜索结果' },
       },

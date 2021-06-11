@@ -1,3 +1,5 @@
+@import './config.scss';
+
 * {
   margin: 0;
   padding: 0;
@@ -12,12 +14,18 @@ body {
     height: 800px;
     margin-right: auto;
     margin-left: auto;
+    border: #ccc 1px solid;
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 14px;
     box-shadow: 0 0 10px 2px rgba($color: #000000, $alpha: .2);
+    user-select: none;
+    color: #353534;
 
 
     a {
       text-decoration: none;
-      color: #333;
+      color: #353534;
     }
 
     li {
@@ -39,5 +47,103 @@ body {
       /* IE6、7 专有，为了照顾低版本 */
       *zoom: 1;
     }
+
+    // iconfont
+    .icon {
+      width: 1em;
+      height: 1em;
+      vertical-align: -0.15em;
+      fill: currentColor;
+      overflow: hidden;
+    }
+
+    // element-ui
+    .el-tabs__item {
+      color: #666;
+    }
+
+    .el-tabs__item.is-active {
+      color: $base-color;
+    }
+
+    .el-tabs__item:hover {
+      color: $base-color;
+    }
+
+    .el-tabs__active-bar {
+      background-color: $base-color;
+    }
+
+    .el-tabs__nav-wrap::after {
+      height: 1px;
+    }
+
+    .el-pagination.is-background .el-pager li:not(.disabled).active {
+      background-color: $base-color;
+    }
+
+    .el-pagination.is-background .el-pager li:not(.disabled):hover {
+      color: #606266;
+      background-color: #e8e8e9;
+    }
+
+    .el-pagination.is-background .btn-next,
+    .el-pagination.is-background .btn-prev,
+    .el-pagination.is-background .el-pager li {
+      background-color: #fff;
+      border: 1px solid #e8e8e9;
+      border-radius: 4px;
+    }
+
+    .el-carousel {
+
+      // 轮播图左右箭头
+      .el-carousel__arrow {
+        font-size: 41px;
+        opacity: .8;
+        border-radius: 0;
+        width: 41px !important;
+        height: 69px !important;
+        color: #848484;
+        background-color: transparent;
+
+        &:hover {
+          color: #fff;
+          // background-color: #797978;
+        }
+      }
+
+      // 轮播图左箭头
+      .el-carousel__arrow--left {
+        left: 0;
+      }
+
+      // 轮播图右箭头
+      .el-carousel__arrow--right {
+        right: 0;
+      }
+
+      /* 轮播图下方指示器整体 */
+
+      .el-carousel__indicators {
+        left: 95%;
+        bottom: 1%;
+      }
+
+      /* 指示器的每个小圆点 */
+
+      .el-carousel__button {
+        background-color: $base-color;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        // border: 2px solid #333;
+
+        &:hover {
+          background-color: $base-color;
+        }
+      }
+    }
+
   }
 }

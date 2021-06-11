@@ -32,7 +32,6 @@ import HeaderBar from '@/components/HeaderBar'
 export default {
   components: {
     HeaderBar,
-    // Sidebar
   },
   setup() {
 
@@ -47,11 +46,11 @@ export default {
   position: relative;
 
   .box-sidebar {
-    width: 300px;
+    width: 200px;
     height: 700px;
-    background-color: wheat;
+    background-color: #ededed;
 
-    a.router-link-active{
+    a.router-link-active {
       color: #fff;
       background-color: tomato;
     }
@@ -62,15 +61,16 @@ export default {
     top: 50px;
     right: 0;
 
-    width: 1140px;
+    width: 1240px;
     height: 700px;
-    background-color: tan;
+    // background-color: #fff;
   }
 
   .box-footer {
     width: 100%;
     height: 50px;
-    background-color: tomato;
+    background-color: #fff;
+    box-shadow: 0 -1px 2px rgba($color: #000000, $alpha: 0.1);
   }
 }
 </style>
