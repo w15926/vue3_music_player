@@ -12,23 +12,41 @@
       </el-carousel-item>
     </el-carousel>
 
-    <!--  -->
+    <!-- 推荐歌单 -->
+    <div class="rMusic-box">
+      <p class="title">推荐歌单</p>
+      <div class="rMusic" v-for="item in recommendMusic" :key="item.id">
+        <div class="rMusic-img">
+          <img :src="item.picUrl" alt="">
+        </div>
+        <p>{{ item.name }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { getBannerData } from '@/api/discover'
+import { getBannerData, getRecommendMusic } from '@/api/discover'
 import { onMounted, reactive, ref, toRefs } from '@vue/runtime-core'
 export default {
+  name: 'discover',
   setup() {
     let state = reactive({
       banner: [], // 轮播图
+      recommendMusic: [], // 推荐歌单
     })
 
     onMounted(() => {
+      // 获取轮播图
       getBannerData().then(res => {
         state.banner = res.banners
-        console.log(state.banner)
+        console.log('轮播图', state.banner)
+      })
+      // 获取推荐歌单
+      const data = { limit: 10 }
+      getRecommendMusic(data).then(res => {
+        state.recommendMusic = res.result
+        console.log('推荐歌单', state.recommendMusic);
       })
     })
 
@@ -42,7 +60,9 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/config.scss";
 .discover {
-  padding: 20px 100px;
+  // 宽度1240
+  padding: 20px 35px;
+  // 轮播图
   .el-carousel {
     a {
       display: block;
@@ -67,6 +87,47 @@ export default {
           border-radius: 10px 0 10px 0;
           background-color: $color2;
         }
+      }
+    }
+  }
+  // 推荐歌单
+  .rMusic-box {
+    .title {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+    margin-top: 30px;
+    .rMusic:nth-child(6) {
+      margin-right: 0;
+    }
+    .rMusic:nth-child(11) {
+      margin-right: 0;
+    }
+    .rMusic:nth-child(6) {
+      margin-right: 0;
+    }
+    .rMusic {
+      display: inline-block;
+      width: 170px;
+      height: 220px;
+      margin-right: 28px;
+      margin-bottom: 30px;
+      border-radius: 10px;
+      overflow: hidden;
+
+      .rMusic-img {
+        width: 100%;
+        height: 175px;
+        border-radius: 10px;
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+        }
+      }
+      p {
+        margin-top: 13px;
       }
     }
   }

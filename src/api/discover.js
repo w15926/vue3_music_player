@@ -8,8 +8,18 @@
 
 import request from '@/utils/request'
 
+// 获取轮播图
 export function getBannerData() {
   return request({
     url: '/banner'
+  })
+}
+
+// 获取推荐歌单
+export function getRecommendMusic(data) {
+  return request({
+    url: '/personalized',
+    method: 'get',
+    params: data
   })
 }

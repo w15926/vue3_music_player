@@ -6,6 +6,7 @@ playlists
 
 <script>
 export default {
+  name:'playlists',
   setup () {
     
 

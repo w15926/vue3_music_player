@@ -13,26 +13,31 @@ const routes = [
     children: [
       {
         path: '/discover',
+        name: 'discover',
         component: () => import('../views/Home/Children/Discover.vue'),
         meta: { title: '发现音乐' },
       },
       {
         path: '/playlists',
+        name: 'playlists',
         component: () => import('../views/Home/Children/Playlists.vue'),
         meta: { title: '推荐歌单' },
       },
       {
         path: '/songs',
+        name: 'songs',
         component: () => import('../views/Home/Children/Songs.vue'),
         meta: { title: '最新音乐' },
       },
       {
         path: '/mvs',
+        name: 'mvs',
         component: () => import('../views/Home/Children/Mvs.vue'),
         meta: { title: '最新MV' },
       },
       {
         path: '/result',
+        name: 'result',
         component: () => import('../views/Home/Children/Result.vue'),
         meta: { title: '搜索结果' },
       },

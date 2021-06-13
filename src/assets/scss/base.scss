@@ -6,14 +6,15 @@
 }
 
 body {
-  box-sizing: border-box;
-  padding: 20px;
+  position: relative;
 
   .container {
-    width: 1440px;
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    width: 1226px;
     height: 800px;
-    margin-right: auto;
-    margin-left: auto;
     border: #ccc 1px solid;
     border-radius: 10px;
     overflow: hidden;

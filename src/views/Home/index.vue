@@ -1,43 +1,64 @@
 <template>
   <div class="container">
     <header-bar />
+    <div class="wrap">
 
-    <div class="box-sidebar">
-      <ul>
-        <li>
-          <router-link to="/discover">发现音乐</router-link>
-        </li>
-        <li>
-          <router-link to="/playlists">推荐歌单</router-link>
-        </li>
-        <li>
-          <router-link to="/songs">最新音乐</router-link>
-        </li>
-        <li>
-          <router-link to="/mvs">最新MV</router-link>
-        </li>
-      </ul>
-    </div>
-    <div class="box-main">
-      <router-view v-slot="{ Component, route }">
-        <transition :name="route.meta.transition || 'fade'" mode="out-in">
-          <keep-alive>
-            <component :is="Component" :key="route.meta.usePathKey ? route.path : undefined" />
-          </keep-alive>
-        </transition>
-      </router-view>
-    </div>
-    <div class="box-footer"></div>
+      <div class="box-sidebar">
+        <ul>
+          <li>
+            <router-link to="/discover">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-yinle2"></use>
+              </svg>
+              发现音乐
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/playlists">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-gedan"></use>
+              </svg>
+              推荐歌单
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/songs">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-zuixin"></use>
+              </svg>
+              最新音乐
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/mvs">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-MV"></use>
+              </svg>
+              最新MV
+            </router-link>
+          </li>
+        </ul>
+      </div>
 
+      <div class="box-main">
+        <el-scrollbar height="700px">
+          <router-view />
+        </el-scrollbar>
+      </div>
+
+    </div>
+    <footer-bar />
   </div>
 </template>
 
 <script>
 import HeaderBar from '@/components/HeaderBar'
+import FooterBar from '@/components/FooterBar'
 
 export default {
   components: {
     HeaderBar,
+    FooterBar
   },
   setup() {
 
@@ -48,35 +69,43 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  position: relative;
+@import "@/assets/scss/config.scss";
+
+.wrap {
+  display: flex;
 
   .box-sidebar {
-    width: 200px;
+    width: 230px;
     height: 700px;
     background-color: #ededed;
 
-    a.router-link-active {
-      color: #fff;
-      background-color: tomato;
+    li {
+      height: 33px;
+      line-height: 33px;
+
+      a {
+        padding-left: 30px;
+        box-sizing: border-box;
+
+        .icon {
+          font-size: 20px;
+          vertical-align: middle;
+          margin-right: 5px;
+        }
+      }
+
+      a.router-link-active {
+        display: inline-block;
+        width: 100%;
+        color: $base-color;
+        background-color: #e1e1e1;
+      }
     }
   }
 
   .box-main {
-    position: absolute;
-    top: 50px;
-    right: 0;
-
     width: 1240px;
     height: 700px;
-    // background-color: #fff;
-  }
-
-  .box-footer {
-    width: 100%;
-    height: 50px;
-    background-color: #fff;
-    box-shadow: 0 -1px 2px rgba($color: #000000, $alpha: 0.1);
   }
 }
 </style>

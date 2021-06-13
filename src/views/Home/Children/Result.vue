@@ -15,6 +15,7 @@
 import { watch } from '@vue/runtime-core'
 import { useRoute } from 'vue-router'
 export default {
+  name:'result',
   setup() {
     const activeName = 'first'
     let route = useRoute()

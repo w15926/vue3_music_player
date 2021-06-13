@@ -18,7 +18,10 @@
     </div>
 
     <div class="box-right">
-      <input type="text" placeholder="搜索" v-model="inputValue" @keyup.enter="searchMusic">
+      <svg class="icon-search" aria-hidden="true">
+        <use xlink:href="#icon-sousuo"></use>
+      </svg>
+      <input type="text" placeholder=" 搜索" v-model="inputValue" @keyup.enter="searchMusic">
     </div>
 
   </div>
@@ -111,10 +114,17 @@ export default {
     // el-input{
     //   width: 200px;
     // }
+    .icon-search {
+      position: absolute;
+      top: 3px;
+      left: 4px;
+      width: 17px;
+      height: 17px;
+    }
     input {
       font-size: $font-size-small;
       width: 135px;
-      height: 20px;
+      height: 23px;
       border-radius: 10px;
       outline: none;
       border: none;

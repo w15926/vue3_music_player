@@ -1,13 +1,14 @@
 <template>
   <div>
-songs
+    songs
   </div>
 </template>
 
 <script>
 export default {
-  setup () {
-    
+  name: 'spngs',
+  setup() {
+
 
     return {}
   }
@@ -15,5 +16,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

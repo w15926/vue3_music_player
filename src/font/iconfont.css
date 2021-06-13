@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2607809 */
-  src: url('iconfont.woff2?t=1623399928268') format('woff2'),
-       url('iconfont.woff?t=1623399928268') format('woff'),
-       url('iconfont.ttf?t=1623399928268') format('truetype');
+  src: url('iconfont.woff2?t=1623419317744') format('woff2'),
+       url('iconfont.woff?t=1623419317744') format('woff'),
+       url('iconfont.ttf?t=1623419317744') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,38 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-yinlemusic214:before {
+  content: "\e617";
+}
+
+.icon-yinle:before {
+  content: "\e601";
+}
+
+.icon-yinle1:before {
+  content: "\e63b";
+}
+
+.icon-yinle2:before {
+  content: "\e60d";
+}
+
+.icon-yinle_2:before {
+  content: "\e705";
+}
+
+.icon-gedan:before {
+  content: "\e636";
+}
+
+.icon-MV:before {
+  content: "\e600";
+}
+
+.icon-zuixin:before {
+  content: "\e665";
 }
 
 .icon-sousuo:before {

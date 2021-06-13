@@ -6,6 +6,7 @@ mvs
 
 <script>
 export default {
+  name:'MVs',
   setup () {
     
 
