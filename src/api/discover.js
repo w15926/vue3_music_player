@@ -1,8 +1,8 @@
 /* 
   @Description: 发现音乐相关接口
   @Author: 王乐翔
-  @Date: 2021-06-11 xx:xx:xx
-  @LastEditTime: 2021-06-11 xx:xx:xx
+  @Date: 2021-06-xx xx:xx:xx
+  @LastEditTime: 2021-06-xx xx:xx:xx
   @LastEditors: 王乐翔
  */
 
@@ -16,10 +16,26 @@ export function getBannerData() {
 }
 
 // 获取推荐歌单
-export function getRecommendMusic(data) {
+export function getSongSheet(data) {
   return request({
     url: '/personalized',
     method: 'get',
     params: data
+  })
+}
+
+// 获取推荐音乐
+export function getNewSong(data) {
+  return request({
+    url: '/personalized/newsong',
+    method: 'get',
+    params: data
+  })
+}
+
+// 获取推荐mv
+export function getRecommendMv(data) {
+  return request({
+    url: 'personalized/mv'
   })
 }

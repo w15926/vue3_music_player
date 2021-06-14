@@ -52,8 +52,12 @@
 </template>
 
 <script>
+// components
 import HeaderBar from '@/components/HeaderBar'
 import FooterBar from '@/components/FooterBar'
+// composition api
+import { useStore } from 'vuex'
+import { computed } from '@vue/runtime-core'
 
 export default {
   components: {
@@ -61,9 +65,7 @@ export default {
     FooterBar
   },
   setup() {
-
-
-    return {}
+    return {  }
   }
 }
 </script>

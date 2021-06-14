@@ -108,7 +108,7 @@ export default {
   .box-right {
     position: absolute;
     right: 0;
-    top: 50;
+    top: 25px;
     transform: translateY(-50%);
     width: 310px;
     // el-input{
