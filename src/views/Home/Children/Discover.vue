@@ -280,9 +280,12 @@ export default {
         }
         .rMv-info-top {
           padding: 5px 0;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
         .rMv-info-bottom {
-          color: $color4;
+          color: #ccc;
           font-size: $font-size-small;
         }
       }
