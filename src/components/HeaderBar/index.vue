@@ -5,12 +5,12 @@
       <span class="red"></span>
       <span class="yellow"></span>
       <span class="green"></span>
-      <span class="arrow-left">
+      <span class="arrow-left" @click="back">
         <svg class="icon i-arrow" aria-hidden="true">
           <use xlink:href="#icon-zuojiantou"></use>
         </svg>
       </span>
-      <span class="arrow-right">
+      <span class="arrow-right" @click="front">
         <svg class="icon i-arrow" aria-hidden="true">
           <use xlink:href="#icon-youjiantou"></use>
         </svg>
@@ -37,6 +37,11 @@ export default {
 
     let inputValue = ref('')
 
+    // 返回按钮
+    const back = () => router.back()
+    // 前进按钮
+    const front = () => router.go(1)
+
     // 搜索
     const searchMusic = () => {
       if (inputValue.value.trim() !== '') {
@@ -54,7 +59,9 @@ export default {
 
     return {
       inputValue,
-      searchMusic
+      searchMusic,
+      back,
+      front
     }
   }
 }

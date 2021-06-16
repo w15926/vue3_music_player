@@ -18,10 +18,10 @@ const routes = [
         meta: { title: '发现音乐' },
       },
       {
-        path: '/playlists',
-        name: 'playlists',
-        component: () => import('../views/Home/Children/Playlists.vue'),
-        meta: { title: '推荐歌单' },
+        path: '/qualitySongList',
+        name: 'qualitySongList',
+        component: () => import('../views/Home/Children/QualitySongList.vue'),
+        meta: { title: '精品歌单' },
       },
       {
         path: '/songs',
