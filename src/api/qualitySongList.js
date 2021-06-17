@@ -11,6 +11,14 @@ import request from '@/utils/request'
 // 获取精品歌单
 export function getQSList(data) {
   return request({
+    url: '/top/playlist',
+    method: 'get',
+    params: data
+  })
+}
+
+export function getBanner(data) {
+  return request({
     url: '/top/playlist/highquality',
     method: 'get',
     params: data

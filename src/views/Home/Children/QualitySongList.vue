@@ -21,44 +21,84 @@
       <span v-for="(item,index) in tags" :key="index" :class="{'tag-active':currentIndex == index}"
         @click="getCurrentMusic(index)">{{ item }}</span>
     </div>
+
     <div class="category-detail">
-      123
+      <div class="detail-wrap" v-for="item in currentSongSheet" :key="item.id">
+        <div class="detail-img"><img :src="item.coverImgUrl" alt=""></div>
+        <p>{{ item.name }}</p>
+      </div>
     </div>
+
+    <!-- 分页器 -->
+    <el-pagination background layout="prev, pager, next" :total="total" :page-size="pageSize"
+      @current-change="handleCurrentChange" />
 
   </div>
 </template>
 
 <script>
-import { getQSList } from '@/api/qualitySongList'
-import { onMounted, reactive, toRefs } from '@vue/runtime-core'
+// request api
+import { getQSList, getBanner } from '@/api/qualitySongList'
+// composition api
+import { computed, onMounted, reactive, toRefs } from '@vue/runtime-core'
+import { useStore } from 'vuex'
 
 export default {
   name: 'playlists',
   setup() {
+    const store = useStore()
     let state = reactive({
       banner: [],
-      tags: ['全部', '华语', '摇滚', '民谣', '电子', '另类/独立', '轻音乐', '综艺', '影视原声', 'ACG'],
-      currentIndex: 0
+      tags: ['全部', '华语', '粤语', '摇滚', '民谣', '电子', '轻音乐', '影视原声', 'ACG'],
+      currentIndex: computed(() => store.state.user.currentIndex),
+      currentSongSheet: [],
+      total: 0,
+      pageSize: 20,
+      pageNum: 1
+    })
+
+    onMounted(() => {
+      getQSListData()
+      getBannerData()
     })
 
     // 点击标签获取当前音乐
     const getCurrentMusic = index => {
-      // 待修改：currentIndex保存在Vuex里
-      state.currentIndex = index
+      store.commit('user/changeCurrentIndex', index)
+      getQSListData()
+      getBannerData()
     }
 
-    onMounted(() => {
-      // let data = { limit: 1 }
-      // 得到banner
-      getQSList({ limit: 1 }).then(res => {
-        state.banner = res.playlists[0]
-        console.log('banner', state.banner)
+    // 获取当前歌单
+    const getQSListData = () => {
+      let data = {
+        limit: state.pageSize,
+        cat: state.tags[state.currentIndex],
+        offset: (state.pageNum - 1) * 10
+      }
+      getQSList(data).then(res => {
+        state.currentSongSheet = res.playlists
+        state.total = res.total
+        console.log(state.total)
       })
-    })
+    }
+
+    // 获取banner
+    const getBannerData = () => {
+      getBanner({ limit: 1, cat: state.tags[state.currentIndex] })
+        .then(res => state.banner = res.playlists[0])
+    }
+
+    // 改变当前页时触发
+    const handleCurrentChange = val => {
+      state.pageNum = val
+      getQSListData()
+    }
 
     return {
       ...toRefs(state),
-      getCurrentMusic
+      getCurrentMusic,
+      handleCurrentChange
     }
   }
 }
@@ -148,6 +188,45 @@ export default {
         background-color: transparent;
       }
     }
+  }
+  .category-detail {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    cursor: pointer;
+    .detail-wrap {
+      flex: 0 0 18%;
+      height: 220px;
+      margin-bottom: 30px;
+      border-radius: 10px;
+      overflow: hidden;
+      .detail-img {
+        width: 100%;
+        height: 180px;
+        border-radius: 10px;
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      p {
+        // 强制文字最多保留两行，溢出省略号隐藏
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        word-wrap: break-word;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        margin-top: 7px;
+        font-size: $font-size-small;
+      }
+    }
+  }
+  .el-pagination {
+    display: flex;
+    justify-content: center;
   }
 }
 </style>

@@ -79,7 +79,7 @@ export default {
     })
 
     // 当前歌曲url
-    function songUrl(url) {
+    const songUrl = url => {
       getSongUrl(url).then(res => {
         // emit('currentSongUrl', res.data[0].url)
         store.commit('user/newCurrentSongUrl', '')
@@ -89,27 +89,25 @@ export default {
       })
     }
 
-    onMounted(() => {
-      // 获取轮播图
-      getBannerData().then(res => {
-        state.banner = res.banners
-        console.log('轮播图', state.banner)
-      })
-      // 获取推荐歌单
-      const data = { limit: 10 }
-      getSongSheet(data).then(res => {
-        state.songSheet = res.result
-        console.log('推荐歌单', state.songSheet);
-      })
-      // 获取最新音乐（推荐排行）
-      getNewSong(data).then(res => {
-        state.newSong = res.result
-        console.log('最新音乐（推荐排行）', state.newSong)
-      })
-      getRecommendMv().then(res => {
-        state.recommendMv = res.result
-        console.log('推荐MV', state.recommendMv)
-      })
+    // 获取轮播图
+    getBannerData().then(res => {
+      state.banner = res.banners
+      console.log('轮播图', state.banner)
+    })
+    // 获取推荐歌单
+    const data = { limit: 10 }
+    getSongSheet(data).then(res => {
+      state.songSheet = res.result
+      console.log('推荐歌单', state.songSheet);
+    })
+    // 获取最新音乐（推荐排行）
+    getNewSong(data).then(res => {
+      state.newSong = res.result
+      console.log('最新音乐（推荐排行）', state.newSong)
+    })
+    getRecommendMv().then(res => {
+      state.recommendMv = res.result
+      console.log('推荐MV', state.recommendMv)
     })
 
     return {
