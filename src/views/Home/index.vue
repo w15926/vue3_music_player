@@ -39,10 +39,13 @@ export default {
 @import "@/assets/scss/config.scss";
 
 .wrap {
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
 
   .box-main {
-    width: 1240px;
+    width: 1006px;
+    box-sizing: border-box;
     height: 700px;
   }
 }

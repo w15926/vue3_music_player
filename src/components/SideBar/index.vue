@@ -51,11 +51,13 @@ export default {
 @import "@/assets/scss/config.scss";
 
 .box-sidebar {
-  width: 230px;
+  width: 200px;
   height: 700px;
+  box-sizing: border-box;
   background-color: #ededed;
 
   li {
+    width: 200px;
     height: 33px;
     line-height: 33px;
 

@@ -173,9 +173,9 @@ export default {
     }
     .rMusic {
       display: inline-block;
-      width: 170px;
-      height: 220px;
-      margin-right: 28px;
+      width: 165px;
+      height: 200px;
+      margin-right: 27px;
       margin-bottom: 30px;
       border-radius: 10px;
       overflow: hidden;
@@ -194,6 +194,9 @@ export default {
       p {
         padding: 0 5px 0;
         margin-top: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
   }
