@@ -31,7 +31,7 @@
 
     <!-- 分页器 -->
     <el-pagination background layout="prev, pager, next" :total="total" :page-size="pageSize"
-      @current-change="handleCurrentChange" />
+      @current-change="handleCurrentChange" :current-page="pageNum" />
 
   </div>
 </template>
@@ -67,6 +67,7 @@ export default {
       store.commit('user/changeCurrentIndex', index)
       getQSListData()
       getBannerData()
+      state.pageNum = 1 // 默认返回第一页
     }
 
     // 获取当前歌单
@@ -79,7 +80,6 @@ export default {
       getQSList(data).then(res => {
         state.currentSongSheet = res.playlists
         state.total = res.total
-        console.log(state.total)
       })
     }
 
