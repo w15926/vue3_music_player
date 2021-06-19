@@ -18,7 +18,7 @@
         </router-link>
       </li>
       <li>
-        <router-link to="/songs">
+        <router-link to="/newMusic">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-zuixin"></use>
           </svg>

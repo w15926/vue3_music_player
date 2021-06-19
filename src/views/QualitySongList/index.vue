@@ -30,8 +30,10 @@
     </div>
 
     <!-- 分页器 -->
-    <el-pagination background layout="prev, pager, next" :total="total" :page-size="pageSize"
-      @current-change="handleCurrentChange" :current-page="pageNum" />
+    <!-- <el-pagination background layout="prev, pager, next" :total="total" :page-size="pageSize"
+      @current-change="handleCurrentChange" :current-page="pageNum" /> -->
+    <pagination :total="total" :page-size="pageSize" :current-page="pageNum"
+      @handleCurrentChange="handleCurrentChange" />
 
   </div>
 </template>
@@ -43,8 +45,13 @@ import { getQSList, getBanner } from '@/api/qualitySongList'
 import { computed, onMounted, reactive, toRefs } from '@vue/runtime-core'
 import { useStore } from 'vuex'
 
+import Pagination from '@/components/Pagination'
+
 export default {
   name: 'playlists',
+  components: {
+    Pagination
+  },
   setup() {
     const store = useStore()
     let state = reactive({
@@ -65,9 +72,9 @@ export default {
     // 点击标签获取当前音乐
     const getCurrentMusic = index => {
       store.commit('user/changeCurrentIndex', index)
+      state.pageNum = 1 // 默认返回第一页
       getQSListData()
       getBannerData()
-      state.pageNum = 1 // 默认返回第一页
     }
 
     // 获取当前歌单
@@ -92,6 +99,7 @@ export default {
     // 改变当前页时触发
     const handleCurrentChange = val => {
       state.pageNum = val
+      console.log('state.pageNum', state.pageNum);
       getQSListData()
     }
 

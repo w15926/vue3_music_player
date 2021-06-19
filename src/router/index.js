@@ -14,31 +14,31 @@ const routes = [
       {
         path: '/discover',
         name: 'discover',
-        component: () => import('../views/Home/Children/Discover.vue'),
+        component: () => import('@/views/Discover'),
         meta: { title: '发现音乐' },
       },
       {
         path: '/qualitySongList',
         name: 'qualitySongList',
-        component: () => import('../views/Home/Children/QualitySongList.vue'),
+        component: () => import('@/views/QualitySongList'),
         meta: { title: '精品歌单' },
       },
       {
-        path: '/songs',
-        name: 'songs',
-        component: () => import('../views/Home/Children/Songs.vue'),
+        path: '/newMusic',
+        name: 'newMusic',
+        component: () => import('@/views/NewMusic'),
         meta: { title: '最新音乐' },
       },
       {
         path: '/mvs',
         name: 'mvs',
-        component: () => import('../views/Home/Children/Mvs.vue'),
+        component: () => import('@/views/MVs'),
         meta: { title: '最新MV' },
       },
       {
         path: '/result',
         name: 'result',
-        component: () => import('../views/Home/Children/Result.vue'),
+        component: () => import('@/views/Result'),
         meta: { title: '搜索结果' },
       },
     ]
