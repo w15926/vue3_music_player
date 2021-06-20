@@ -30,10 +30,10 @@
     </div>
 
     <!-- 分页器 -->
-    <!-- <el-pagination background layout="prev, pager, next" :total="total" :page-size="pageSize"
-      @current-change="handleCurrentChange" :current-page="pageNum" /> -->
-    <pagination :total="total" :page-size="pageSize" :current-page="pageNum"
-      @handleCurrentChange="handleCurrentChange" />
+    <el-pagination background layout="prev, pager, next" :total="total" :page-size="pageSize"
+      @current-change="handleCurrentChange" :current-page="pageNum" />
+    <!-- <pagination :total="total" :page-size="pageSize" :current-page="pageNum"
+      @handleCurrentChange="handleCurrentChange" /> -->
 
   </div>
 </template>
@@ -77,6 +77,13 @@ export default {
       getBannerData()
     }
 
+    // 改变当前页时触发
+    const handleCurrentChange = val => {
+      state.pageNum = val
+      console.log('state.pageNum', state.pageNum);
+      getQSListData()
+    }
+
     // 获取当前歌单
     const getQSListData = () => {
       let data = {
@@ -94,13 +101,6 @@ export default {
     const getBannerData = () => {
       getBanner({ limit: 1, cat: state.tags[state.currentIndex] })
         .then(res => state.banner = res.playlists[0])
-    }
-
-    // 改变当前页时触发
-    const handleCurrentChange = val => {
-      state.pageNum = val
-      console.log('state.pageNum', state.pageNum);
-      getQSListData()
     }
 
     return {

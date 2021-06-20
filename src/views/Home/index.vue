@@ -44,7 +44,7 @@ export default {
   display: flex;
 
   .box-main {
-    width: 1006px;
+    width: 1023px;
     box-sizing: border-box;
     height: 700px;
   }

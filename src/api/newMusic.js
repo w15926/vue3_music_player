@@ -10,7 +10,7 @@ import request from '@/utils/request'
 
 // 获取最新音乐（新歌速递） 
 // /top/song?type=96  全部:0  华语:7  欧美:96  日本:8  韩国:16
-function geNewMusic(data) {
+export function geNewMusic(data) {
   return request({
     url: '/top/song',
     method: 'get',
