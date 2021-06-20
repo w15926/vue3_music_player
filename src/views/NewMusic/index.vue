@@ -5,16 +5,6 @@
       <span v-for="(item,index) in category" :key="index">{{ item }}</span>
     </div>
 
-    <!-- <ul class="list">
-      <li v-for="(item,index) in songSheet" :key="item.id + index">
-        <div class="index">{{ ++index }}</div>
-        <div class="img"><img :src="item.album.blurPicUrl" alt=""></div>
-        <div class="title">{{ item.name }}</div>
-        <div class="author">{{ item.artists[0].name }}</div>
-        <div class="sheet">{{ item.album.name }}</div>
-        <div class="time">03:57</div>
-      </li>
-    </ul> -->
     <ul class="list">
       <li v-for="(item,index) in songSheet" :key="item.id + index">
         <el-row>
@@ -34,7 +24,7 @@
             <div class="sheet">{{ item.album.name }}</div>
           </el-col>
           <el-col :span="3">
-            <div class="time">03:57</div>
+            <div class="time">{{ timeFormat(item.duration) }}</div>
           </el-col>
         </el-row>
       </li>
@@ -44,8 +34,12 @@
 </template>
 
 <script>
-import { geNewMusic } from '@/api/newMusic'
 import { reactive, toRefs } from '@vue/reactivity'
+import { computed, onMounted } from '@vue/runtime-core'
+import { geNewMusic } from '@/api/newMusic'
+
+import { timeFormat as minutesSeconds } from '@/utils/dateFormat'
+
 export default {
   name: 'spngs',
   setup() {
@@ -54,6 +48,11 @@ export default {
       songSheet: [],
     })
 
+    onMounted(() => {
+      geNewMusicData()
+    })
+
+    // 得到最新音乐
     const geNewMusicData = () => {
       // 全部:0  华语:7  欧美:96  日本:8  韩国:16
       const params = { type: 0 }
@@ -62,11 +61,17 @@ export default {
         console.log(state.songSheet);
       })
     }
-    geNewMusicData()
+
+    // 毫秒格式化
+    const timeFormat = val => {
+      let timeFormat = minutesSeconds(val)
+      return timeFormat
+    }
 
     return {
       ...toRefs(state),
-      geNewMusicData
+      geNewMusicData,
+      timeFormat
     }
   }
 }
@@ -116,9 +121,9 @@ export default {
       .author {
         color: rgb(172, 172, 172);
       }
-      .sheet{
+      .sheet {
         color: rgb(172, 172, 172);
-        white-space: nowrap; 
+        white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
