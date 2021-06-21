@@ -79,8 +79,9 @@ export default {
     })
 
     // 当前歌曲url
-    const songUrl = url => {
-      getSongUrl(url).then(res => {
+    const songUrl = id => {
+      console.log(id);
+      getSongUrl(id).then(res => {
         // emit('currentSongUrl', res.data[0].url)
         store.commit('user/newCurrentSongUrl', '')
         setTimeout(() => {

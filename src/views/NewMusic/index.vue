@@ -6,7 +6,7 @@
     </div>
 
     <ul class="list">
-      <li v-for="(item,index) in songSheet" :key="item.id + index">
+      <li v-for="(item,index) in songSheet" :key="item.id + index" @click="songUrl(item.id)">
         <el-row>
           <el-col :span="2">
             <div class="index">{{ ++index }}</div>
@@ -36,13 +36,16 @@
 <script>
 import { reactive, toRefs } from '@vue/reactivity'
 import { computed, onMounted } from '@vue/runtime-core'
-import { geNewMusic } from '@/api/newMusic'
+import { useStore } from 'vuex'
 
+import { geNewMusic } from '@/api/newMusic'
+import { getSongUrl } from '@/api'
 import { timeFormat as minutesSeconds } from '@/utils/dateFormat'
 
 export default {
   name: 'spngs',
-  setup() {
+  setup(props, { emit }) {
+    const store = useStore()
     let state = reactive({
       category: ['全部', '华语', '欧美', '韩国', '日本'],
       songSheet: [],
@@ -68,10 +71,21 @@ export default {
       return timeFormat
     }
 
+    // 点击播放
+    const songUrl = id => {
+      getSongUrl(id).then(res => {
+        store.commit('user/newCurrentSongUrl', '')
+        setTimeout(() => {
+          store.commit('user/newCurrentSongUrl', res.data[0].url)
+        }, 0);
+      })
+    }
+
     return {
       ...toRefs(state),
       geNewMusicData,
-      timeFormat
+      timeFormat,
+      songUrl
     }
   }
 }
@@ -99,7 +113,7 @@ export default {
       height: 80px;
       line-height: 80px;
       cursor: pointer;
-      &:nth-child(2n) {
+      &:nth-child(2n - 1) {
         background-color: #fafafa;
       }
       .index {
