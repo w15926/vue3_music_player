@@ -1,0 +1,6 @@
+// 不换行溢出省略号
+@mixin nowrapEllipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

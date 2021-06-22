@@ -5,8 +5,8 @@
       <span v-for="(item,index) in category" :key="index">{{ item }}</span>
     </div>
 
-    <ul class="list">
-      <li v-for="(item,index) in songSheet" :key="item.id + index" @click="songUrl(item.id)">
+    <ul class="list-music">
+      <li v-for="(item,index) in currentSheet" :key="item.id + index" @click="songUrl(item.id)">
         <el-row>
           <el-col :span="2">
             <div class="index">{{ ++index }}</div>
@@ -28,6 +28,7 @@
           </el-col>
         </el-row>
       </li>
+      <el-button type="primary" class="loading" @click="loadMore" v-if="loading">点击加载更多</el-button>
     </ul>
 
   </div>
@@ -49,6 +50,8 @@ export default {
     let state = reactive({
       category: ['全部', '华语', '欧美', '韩国', '日本'],
       songSheet: [],
+      currentSheet: [],
+      loading: false,
     })
 
     onMounted(() => {
@@ -61,7 +64,8 @@ export default {
       const params = { type: 0 }
       geNewMusic(params).then(res => {
         state.songSheet = res.data
-        console.log(state.songSheet);
+        state.currentSheet = state.songSheet.slice(0, 50)
+        state.loading = true
       })
     }
 
@@ -81,17 +85,27 @@ export default {
       })
     }
 
+    // 加载更多
+    const loadMore = () => {
+      state.loading = false
+      state.songSheet.forEach((item, index) => {
+        if (index > 49) state.currentSheet.push(item)
+      })
+    }
+
     return {
       ...toRefs(state),
       geNewMusicData,
       timeFormat,
-      songUrl
+      songUrl,
+      loadMore
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/scss/mixin.scss";
 .new-music {
   // 分类
   .category {
@@ -108,7 +122,7 @@ export default {
     }
   }
   // 列表
-  .list {
+  .list-music {
     li {
       height: 80px;
       line-height: 80px;
@@ -129,23 +143,29 @@ export default {
         img {
           width: 100%;
           height: 100%;
-          // vertical-align: middle;
         }
+      }
+      .title {
+        @include nowrapEllipsis;
+        padding-right: 20px;
       }
       .author {
         color: rgb(172, 172, 172);
       }
       .sheet {
         color: rgb(172, 172, 172);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        @include nowrapEllipsis;
       }
       .time {
         color: rgb(172, 172, 172);
         padding-left: 50px;
       }
     }
+  }
+  // 加载更多
+  .loading {
+    margin: 20px 20px 20px 50%;
+    transform: translateX(-50%);
   }
 }
 </style>

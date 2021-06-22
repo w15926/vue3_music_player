@@ -121,6 +121,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss/config.scss";
+@import "@/assets/scss/mixin.scss";
 .discover {
   // 1240
   padding: 20px 35px;
@@ -193,9 +194,7 @@ export default {
       p {
         padding: 0 5px 0;
         margin-top: 10px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        @include nowrapEllipsis;
       }
     }
   }
@@ -222,8 +221,7 @@ export default {
           border-bottom: 1px solid $color4;
         }
         &:hover {
-          background-color: rgba(240, 240, 240, 0.849);
-          border-radius: 10px;
+          background-color: #fafafa;
         }
         .nMusic-img {
           width: 78px;
@@ -247,6 +245,7 @@ export default {
             .detail-name {
               font-size: 18px;
               padding-bottom: 10px;
+              @include nowrapEllipsis;
             }
             .detail-author {
               font-size: $font-size;
