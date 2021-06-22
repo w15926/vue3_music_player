@@ -2,7 +2,7 @@
   <div class="new-music">
 
     <div class="category">
-      <span v-for="(item,index) in category" :key="index" :class="{'category-active':currentIndex == index}"
+      <span v-for="(item,index) in category" :key="item.id" :class="{'category-active':currentIndex == index}"
         @click="getCurrentMusic(index)">{{ item }}</span>
     </div>
 

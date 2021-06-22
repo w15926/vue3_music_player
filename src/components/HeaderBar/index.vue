@@ -2,9 +2,9 @@
   <div class="header">
 
     <div class="box-left">
-      <span class="red"></span>
-      <span class="yellow"></span>
-      <span class="green"></span>
+      <span class="red" @click="reset"></span>
+      <span class="yellow" @click="narrow"></span>
+      <span class="green" @click="enlarge"></span>
       <span class="arrow-left" @click="back">
         <svg class="icon i-arrow" aria-hidden="true">
           <use xlink:href="#icon-zuojiantou"></use>
@@ -41,6 +41,12 @@ export default {
     const back = () => router.back()
     // 前进按钮
     const front = () => router.go(1)
+    // 红色重置按钮
+    const reset = () => document.body.style.zoom = 1
+    // 黄色缩小按钮
+    const narrow = () => document.body.style.zoom = .8
+    // 绿色放大按钮
+    const enlarge = () => document.body.style.zoom = 1.2
 
     // 搜索
     const searchMusic = () => {
@@ -61,7 +67,10 @@ export default {
       inputValue,
       searchMusic,
       back,
-      front
+      front,
+      reset,
+      narrow,
+      enlarge
     }
   }
 }
@@ -88,12 +97,15 @@ export default {
       margin-top: 3px;
     }
     .red {
+      cursor: pointer;
       background-color: #ff5f59;
     }
     .yellow {
+      cursor: pointer;
       background-color: #ffbc40;
     }
     .green {
+      cursor: pointer;
       background-color: #28c94e;
     }
     .arrow-left {
