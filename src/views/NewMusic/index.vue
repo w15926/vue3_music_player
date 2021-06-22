@@ -2,7 +2,7 @@
   <div class="new-music">
 
     <div class="category">
-      <span v-for="(item,index) in category" :key="index">{{ item }}</span>
+      <span v-for="(item,index) in category" :key="index" :class="{'category-active':currentIndex}">{{ item }}</span>
     </div>
 
     <ul class="list-music">
@@ -52,6 +52,7 @@ export default {
       songSheet: [],
       currentSheet: [],
       loading: false,
+      currentIndex: 0
     })
 
     onMounted(() => {
@@ -115,11 +116,11 @@ export default {
       margin-right: 30px;
       cursor: pointer;
       color: #999;
-
-      &:hover {
-        color: #000;
-      }
     }
+  }
+  // 当前激活分类
+  .category-active {
+    color: #000;
   }
   // 列表
   .list-music {
