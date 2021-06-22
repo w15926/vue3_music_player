@@ -2,7 +2,8 @@
   <div class="new-music">
 
     <div class="category">
-      <span v-for="(item,index) in category" :key="index" :class="{'category-active':currentIndex}">{{ item }}</span>
+      <span v-for="(item,index) in category" :key="index" :class="{'category-active':currentIndex == index}"
+        @click="getCurrentMusic(index)">{{ item }}</span>
     </div>
 
     <ul class="list-music">
@@ -52,18 +53,39 @@ export default {
       songSheet: [],
       currentSheet: [],
       loading: false,
-      currentIndex: 0
+      currentIndex: computed(() => store.state.user.newMusicCurrentIndex)
     })
 
     onMounted(() => {
-      geNewMusicData()
+      const params = { type: 0 }  // 全部:0  华语:7  欧美:96 韩国:16 日本:8  
+      switch (state.currentIndex) {
+        case 0:
+          params.type = 0
+          break
+        case 1:
+          params.type = 7
+          break
+        case 2:
+          params.type = 96
+          break
+        case 3:
+          params.type = 16
+          break
+        case 4:
+          params.type = 8
+          break
+        default:
+          console.error('error')
+          break
+      }
+      geNewMusicData(params)
     })
 
-    // 得到最新音乐
-    const geNewMusicData = () => {
-      // 全部:0  华语:7  欧美:96  日本:8  韩国:16
-      const params = { type: 0 }
+    // 得到最新音乐  
+    const geNewMusicData = (params) => {
       geNewMusic(params).then(res => {
+        state.songSheet = []
+        state.currentSheet = []
         state.songSheet = res.data
         state.currentSheet = state.songSheet.slice(0, 50)
         state.loading = true
@@ -94,12 +116,40 @@ export default {
       })
     }
 
+    // 切换标签
+    const getCurrentMusic = index => {
+      store.commit('user/changeNewMusicCurrentIndex', index)
+      const params = { type: 0 }
+      switch (index) {
+        case 0:
+          params.type = 0
+          break
+        case 1:
+          params.type = 7
+          break
+        case 2:
+          params.type = 96
+          break
+        case 3:
+          params.type = 16
+          break
+        case 4:
+          params.type = 8
+          break
+        default:
+          console.error('error')
+          break
+      }
+      geNewMusicData(params)
+    }
+
     return {
       ...toRefs(state),
       geNewMusicData,
       timeFormat,
       songUrl,
-      loadMore
+      loadMore,
+      getCurrentMusic
     }
   }
 }
@@ -120,7 +170,7 @@ export default {
   }
   // 当前激活分类
   .category-active {
-    color: #000;
+    color: #000 !important;
   }
   // 列表
   .list-music {

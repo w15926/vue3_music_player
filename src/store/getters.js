@@ -1,6 +1,7 @@
 const getters = {
   currentSongUrl: state => state.user.currentSongUrl,
-  currentIndex: state => state.user.currentIndex
+  recommendCurrentIndex: state => state.user.recommendCurrentIndex,
+  newMusicCurrentIndex: state => state.user.newMusicCurrentIndex
 }
 
 export default getters

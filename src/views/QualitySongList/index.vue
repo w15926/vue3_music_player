@@ -57,7 +57,7 @@ export default {
     let state = reactive({
       banner: [],
       tags: ['全部', '华语', '粤语', '摇滚', '民谣', '电子', '轻音乐', '影视原声', 'ACG'],
-      currentIndex: computed(() => store.state.user.currentIndex),
+      currentIndex: computed(() => store.state.user.recommendCurrentIndex),
       currentSongSheet: [],
       total: 0,
       pageSize: 20,
@@ -71,7 +71,7 @@ export default {
 
     // 点击标签获取当前音乐
     const getCurrentMusic = index => {
-      store.commit('user/changeCurrentIndex', index)
+      store.commit('user/changeRecommendCurrentIndex', index)
       state.pageNum = 1 // 默认返回第一页
       getQSListData()
       getBannerData()
