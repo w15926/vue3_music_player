@@ -30,7 +30,7 @@
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-MV"></use>
           </svg>
-          最新MV
+          推荐MV
         </router-link>
       </li>
     </ul>

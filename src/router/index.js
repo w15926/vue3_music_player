@@ -33,7 +33,7 @@ const routes = [
         path: '/mvs',
         name: 'mvs',
         component: () => import('@/views/MVs'),
-        meta: { title: '最新MV' },
+        meta: { title: '推荐MV' },
       },
       {
         path: '/result',

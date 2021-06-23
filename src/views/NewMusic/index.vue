@@ -93,10 +93,7 @@ export default {
     }
 
     // 毫秒格式化
-    const timeFormat = val => {
-      let timeFormat = minutesSeconds(val)
-      return timeFormat
-    }
+    const timeFormat = val => minutesSeconds(val)
 
     // 点击播放
     const songUrl = id => {
