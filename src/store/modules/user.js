@@ -2,6 +2,7 @@ const state = {
   currentSongUrl: '',
   recommendCurrentIndex: 0, // 推荐歌单索引
   newMusicCurrentIndex: 0, // 最新音乐索引
+  newMVCurrentIndex: 0, // 推荐音乐 --> 最新MV索引
 }
 
 const mutations = {
@@ -13,6 +14,9 @@ const mutations = {
   },
   changeNewMusicCurrentIndex(state, params) {
     state.newMusicCurrentIndex = params
+  },
+  changeNewMVCurrentIndex(state, params) {
+    state.newMVCurrentIndex = params
   }
 }
 

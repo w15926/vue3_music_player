@@ -114,7 +114,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss/config.scss";
-
+@import "@/assets/scss/mixin.scss";
 .quality-song {
   .tag-active {
     color: $base-color;
@@ -167,36 +167,7 @@ export default {
       }
     }
   }
-  .category {
-    display: flex;
-    justify-content: flex-end;
-    margin: 20px 0;
-    letter-spacing: 1px;
-    color: #666;
-    font-size: $font-size-small;
-    span {
-      position: relative;
-      padding: 3px 6px;
-      margin-left: 8px;
-      cursor: pointer;
-
-      &::before {
-        content: "";
-        position: absolute;
-        top: 50%;
-        right: -4px;
-        transform: translateY(-50%);
-        width: 1px;
-        height: 10px;
-        background-color: #ccc;
-      }
-
-      &:last-child::before {
-        content: "";
-        background-color: transparent;
-      }
-    }
-  }
+  @include categoryTag;
   .category-detail {
     display: flex;
     justify-content: space-between;

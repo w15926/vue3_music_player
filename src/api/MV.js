@@ -8,9 +8,27 @@
 
 import request from '@/utils/request'
 
-// 获取推荐MV
-export function recommendMV(){
+// 推荐MV
+export function recommendMV() {
   return request({
-    url:'/personalized/mv'
+    url: '/personalized/mv'
+  })
+}
+
+// 最新MV
+export function newMv(data) {
+  return request({
+    url: '/mv/first',
+    method: 'get',
+    params: data
+  })
+}
+
+// 网易出品
+export function wangYiRelease(data) {
+  return request({
+    url: '/mv/exclusive/rcmd',
+    method: 'get',
+    params: data
   })
 }

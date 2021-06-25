@@ -2,9 +2,9 @@
   <div class="header">
 
     <div class="box-left">
-      <span class="red" @click="reset"></span>
-      <span class="yellow" @click="narrow"></span>
-      <span class="green" @click="enlarge"></span>
+      <span class=" red" @click="reset"></span>
+      <span class=" yellow" @click="narrow"></span>
+      <span class=" green" @click="enlarge"></span>
       <span class="arrow-left" @click="back">
         <svg class="icon i-arrow" aria-hidden="true">
           <use xlink:href="#icon-zuojiantou"></use>
@@ -22,6 +22,7 @@
         <use xlink:href="#icon-sousuo"></use>
       </svg>
       <input type="text" placeholder=" 搜索" v-model="inputValue" @keyup.enter="searchMusic">
+      <span class="clear" @click="inputValue = ''">X</span>
     </div>
 
   </div>
@@ -53,9 +54,7 @@ export default {
       if (inputValue.value.trim() !== '') {
         router.push({
           path: '/result',
-          query: {
-            query: inputValue.value.trim()
-          }
+          query: { query: inputValue.value.trim() }
         })
         inputValue.value = ''
       } else {
@@ -92,6 +91,7 @@ export default {
       display: inline-block;
       width: 15px;
       height: 15px;
+      color: #fff;
       border-radius: 50%;
       margin-right: 10px;
       margin-top: 3px;
@@ -140,15 +140,30 @@ export default {
       width: 17px;
       height: 17px;
     }
+    .clear {
+      position: absolute;
+      left: 131px;
+      top: 3.5px;
+      width: 10px;
+      height: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &:hover {
+        transform: scale(1.4);
+        color: $base-color;
+      }
+    }
     input {
       font-size: $font-size-small;
-      width: 135px;
+      width: 150px;
       height: 23px;
       border-radius: 10px;
       outline: none;
       border: none;
       background-color: #ececeb;
-      padding-left: 25px;
+      // padding-left: 25px;
+      padding: 0 25px;
       box-sizing: border-box;
     }
   }
