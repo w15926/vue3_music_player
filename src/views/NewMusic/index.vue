@@ -53,7 +53,8 @@ export default {
       songSheet: [],
       currentSheet: [],
       loading: false,
-      currentIndex: computed(() => store.state.user.newMusicCurrentIndex)
+      currentIndex: computed(() => store.state.user.newMusicCurrentIndex),
+      slice: 10
     })
 
     onMounted(() => {
@@ -87,8 +88,8 @@ export default {
         state.songSheet = []
         state.currentSheet = []
         state.songSheet = res.data
-        state.currentSheet = state.songSheet.slice(0, 50)
-        state.loading = true
+        state.currentSheet = state.songSheet.slice(0, 10)
+          state.loading = true
       })
     }
 
@@ -108,9 +109,9 @@ export default {
     // 加载更多
     const loadMore = () => {
       state.loading = false
-      state.songSheet.forEach((item, index) => {
-        if (index > 49) state.currentSheet.push(item)
-      })
+      state.currentSheet = state.songSheet.slice(0, state.slice += 10)
+      state.loading = true
+      if (state.currentSheet.length === 100) state.loading = false
     }
 
     // 切换标签

@@ -31,9 +31,7 @@
 
     <!-- 分页器 -->
     <el-pagination background layout="prev, pager, next" :total="total" :page-size="pageSize"
-      @current-change="handleCurrentChange" :current-page="pageNum" />
-    <!-- <pagination :total="total" :page-size="pageSize" :current-page="pageNum"
-      @handleCurrentChange="handleCurrentChange" /> -->
+      @current-change="handleCurrentChange" :current-page="pageNum" v-if="loading" />
 
   </div>
 </template>
@@ -61,7 +59,8 @@ export default {
       currentSongSheet: [],
       total: 0,
       pageSize: 20,
-      pageNum: 1
+      pageNum: 1,
+      loading: false
     })
 
     onMounted(() => {
@@ -94,6 +93,7 @@ export default {
       getQSList(data).then(res => {
         state.currentSongSheet = res.playlists
         state.total = res.total
+        state.loading = true
       })
     }
 
