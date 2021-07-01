@@ -3,8 +3,22 @@
   "name": "vue3_music_player",
   "font_family": "iconfont",
   "css_prefix_text": "icon-",
-  "description": "高仿网易云音乐",
+  "description": "个人练习 - 高仿网易云音乐",
   "glyphs": [
+    {
+      "icon_id": "1110401",
+      "name": "爱心",
+      "font_class": "aixin",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "5651349",
+      "name": "爱心",
+      "font_class": "aixin1",
+      "unicode": "e65c",
+      "unicode_decimal": 58972
+    },
     {
       "icon_id": "36566",
       "name": "播放",

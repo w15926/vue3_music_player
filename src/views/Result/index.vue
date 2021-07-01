@@ -17,14 +17,21 @@
               <el-col :span="4" class="time">时长</el-col>
             </el-row>
           </li>
-          <li class="content" v-for="(item,index) in musicList" :key="item.id" @click="getMusic(item.id)">
+          <li class="content" v-for="(item,index) in musicList" :key="item.id">
             <el-row>
-              <el-col :span="1" class="public index">{{ ++index }}</el-col>
-              <el-col :span="1">💗</el-col>
-              <el-col :span="11" class="p2">{{ item.name }}</el-col>
-              <el-col :span="3" class="public p2">{{ item.ar[0].name }}</el-col>
-              <el-col :span="4" class="public p2 al">{{ item.al.name }}</el-col>
-              <el-col :span="3" class="public time">{{ timeFormat(item.dt) }}</el-col>
+              <el-col :span="1" class="public index" @click="getMusic(item.id)">{{ ++index }}</el-col>
+              <el-col :span="1">
+                <svg class="icon" aria-hidden="true" v-if="!item.isLike" @click="addLike(item)">
+                  <use xlink:href="#icon-aixin"></use>
+                </svg>
+                <svg class="icon" aria-hidden="true" v-if="item.isLike" @click="delLike(item)">
+                  <use xlink:href="#icon-aixin1"></use>
+                </svg>
+              </el-col>
+              <el-col :span="11" class="p2" @click="getMusic(item.id)">{{ item.name }}</el-col>
+              <el-col :span="3" class="public p2" @click="getMusic(item.id)">{{ item.ar[0].name }}</el-col>
+              <el-col :span="4" class="public p2 al" @click="getMusic(item.id)">{{ item.al.name }}</el-col>
+              <el-col :span="3" class="public time" @click="getMusic(item.id)">{{ timeFormat(item.dt) }}</el-col>
             </el-row>
           </li>
         </ul>
@@ -46,7 +53,7 @@
     </el-tabs>
     <!-- 分页器 -->
     <el-pagination background layout="prev, pager, next" :total="songCount" :current-page="pageNum"
-      :page-size="pageSize" @current-change="handleCurrentChange" />
+      :page-size="pageSize" @current-change="handleCurrentChange" v-show="musicList.length >= 1" />
   </div>
 </template>
 
@@ -72,7 +79,13 @@ export default {
       songCount: 0, // 查询歌曲数量
       musicList: [],
       pageSize: 0,
-      pageNum: 1
+      pageNum: 1,
+      likesList: [], // vuex里的我喜欢
+    })
+
+    onMounted(() => {
+      state.likesList = store.state.user.likesList
+      console.log('store.state.user.likesList', state.likesList)
     })
 
     watch(route, () => {
@@ -87,6 +100,7 @@ export default {
         state.songCount = res.result.songCount
         state.musicList = res.result.songs
         state.pageSize = res.result.songs.length
+        matching()
         console.log(res);
       })
     }
@@ -99,10 +113,45 @@ export default {
       getSongUrl(id).then(res => store.commit('user/newCurrentSongUrl', res.data[0].url))
     }
 
+    // 添加我喜欢
+    const addLike = item => {
+      item.isLike = !item.isLike
+      store.commit(
+        'user/addLikesList',
+        {
+          id: item.id,
+          title: item.name,
+          singer: item.ar[0].name,
+          album: item.al.name,
+          time: timeFormat(item.dt)
+        }
+      )
+      console.log('store.state.user.likesList', store.state.user.likesList);
+    }
+
+    // 删除当前我喜欢
+    const delLike = item => {
+      item.isLike = false
+      store.commit('user/deleteLikesList', item.id)
+    }
+
+    // 与vuex匹配已激活爱心
+    const matching = () => {
+      state.musicList.forEach(item => {
+        item.isLike = false // 给每一个对象赋初始值（未选中）
+        state.likesList.forEach(storeList => {
+          if (item.id == storeList.id) item.isLike = true // 匹配选中状态让爱心激活
+        })
+      })
+    }
+
     // 分页器改变当前页
     const handleCurrentChange = val => {
       state.queryRequestParams.offset = (val - 1) * 30
-      search(state.queryRequestParams).then(res => state.musicList = res.result.songs)
+      search(state.queryRequestParams).then(res => {
+        state.musicList = res.result.songs
+        matching()
+      })
     }
 
     // 点击分类标签
@@ -115,7 +164,9 @@ export default {
       handleClick,
       timeFormat,
       getMusic,
-      handleCurrentChange
+      handleCurrentChange,
+      addLike,
+      delLike,
     }
   }
 }

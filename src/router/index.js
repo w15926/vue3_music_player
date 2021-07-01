@@ -41,6 +41,12 @@ const routes = [
         component: () => import('@/views/Result'),
         meta: { title: '搜索结果' },
       },
+      {
+        path: '/likes',
+        name: 'likes',
+        component: () => import('@/views/Likes'),
+        meta: { title: '我喜欢的音乐' },
+      },
     ]
   },
 

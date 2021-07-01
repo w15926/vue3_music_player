@@ -33,6 +33,17 @@
           推荐MV
         </router-link>
       </li>
+      <li class="likes">
+        <div class="category-title">
+          创建的歌单
+        </div>
+        <router-link to="/likes">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-aixin"></use>
+          </svg>
+          我喜欢的音乐
+        </router-link>
+      </li>
     </ul>
   </div>
 </template>
@@ -77,6 +88,15 @@ export default {
       width: 100%;
       color: $base-color;
       background-color: #e1e1e1;
+    }
+  }
+  // 我喜欢的音乐
+  .likes {
+    margin-top: 50px;
+    .category-title{
+      padding-left: 20px;
+      font-size: $font-size-small;
+      color: #999;
     }
   }
 }

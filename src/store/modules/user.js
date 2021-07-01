@@ -3,6 +3,7 @@ const state = {
   recommendCurrentIndex: 0, // 推荐歌单索引
   newMusicCurrentIndex: 0, // 最新音乐索引
   newMVCurrentIndex: 0, // 推荐音乐 --> 最新MV索引
+  likesList: [], // 我喜欢的音乐
 }
 
 const mutations = {
@@ -17,6 +18,20 @@ const mutations = {
   },
   changeNewMVCurrentIndex(state, params) {
     state.newMVCurrentIndex = params
+  },
+  // 添加我喜欢
+  addLikesList(state, params) {
+    state.likesList.push(params)
+  },
+  // 删除当前我喜欢
+  deleteLikesList(state, params) {
+    state.likesList.forEach((item, index) => {
+      if (item.id === params) state.likesList.splice(index, 1)
+    })
+  },
+  // 清空我喜欢
+  clearLikesList(state) {
+    state.likesList = []
   }
 }
 
