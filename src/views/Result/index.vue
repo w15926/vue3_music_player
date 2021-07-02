@@ -123,7 +123,8 @@ export default {
           title: item.name,
           singer: item.ar[0].name,
           album: item.al.name,
-          time: timeFormat(item.dt)
+          time: timeFormat(item.dt),
+          isLike: true
         }
       )
       console.log('store.state.user.likesList', store.state.user.likesList);
