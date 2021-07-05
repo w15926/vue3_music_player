@@ -42,6 +42,12 @@ const routes = [
         meta: { title: '搜索结果' },
       },
       {
+        path: '/history',
+        name: 'history',
+        component: () => import('@/views/History'),
+        meta: { title: '最近播放' },
+      },
+      {
         path: '/likes',
         name: 'likes',
         component: () => import('@/views/Likes'),

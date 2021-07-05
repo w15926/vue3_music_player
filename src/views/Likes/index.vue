@@ -25,16 +25,16 @@
       </li>
       <li class="content" v-for="(item,index) in musicList" :key="item.id">
         <el-row>
-          <el-col :span="1" class="public index" @click="getMusic(item.id)">{{ ++index }}</el-col>
+          <el-col :span="1" class="public index" @click="getMusic(item)">{{ ++index }}</el-col>
           <el-col :span="1">
             <svg class="icon" aria-hidden="true" v-if="item.isLike" @click="delLike(item)">
               <use xlink:href="#icon-aixin1"></use>
             </svg>
           </el-col>
-          <el-col :span="11" class="title" @click="getMusic(item.id)">{{ item.title }}</el-col>
-          <el-col :span="3" class="public singer" @click="getMusic(item.id)">{{ item.singer }}</el-col>
-          <el-col :span="4" class="public" @click="getMusic(item.id)">{{ item.album }}</el-col>
-          <el-col :span="3" class="public" @click="getMusic(item.id)">{{ item.time }}</el-col>
+          <el-col :span="11" class="title" @click="getMusic(item)">{{ item.title }}</el-col>
+          <el-col :span="3" class="public singer" @click="getMusic(item)">{{ item.singer }}</el-col>
+          <el-col :span="4" class="public" @click="getMusic(item)">{{ item.album }}</el-col>
+          <el-col :span="3" class="public" @click="getMusic(item)">{{ item.time }}</el-col>
         </el-row>
       </li>
     </ul>
@@ -111,7 +111,20 @@ export default {
     }
 
     // 播放
-    const getMusic = id => getSongUrl(id).then(res => store.commit('user/newCurrentSongUrl', res.data[0].url))
+    const getMusic = item => getSongUrl(item.id).then(res => {
+      store.commit('user/newCurrentSongUrl', res.data[0].url)
+      store.commit(
+        'user/addPlayerHistory',
+        {
+          id: item.id,
+          title: item.title,
+          singer: item.singer,
+          album: item.album,
+          time: item.time,
+          isLike: item.isLike
+        }
+      )
+    })
 
     return {
       ...toRefs(state),

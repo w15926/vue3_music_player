@@ -27,7 +27,7 @@
     <div class="nMusic-box">
       <p class="title">最新音乐</p>
       <div class="nMusic-wrap">
-        <div class="nMusic" v-for="(item, index) in newSong" :key="index + item.id" @click="songUrl(item.id)">
+        <div class="nMusic" v-for="(item, index) in newSong" :key="index + item.id" @click="songUrl(item)">
           <div class="nMusic-img">
             <img :src="item.picUrl" alt="">
           </div>
@@ -63,6 +63,8 @@
 // request api
 import { getBannerData, getSongSheet, getNewSong, getRecommendMv } from '@/api/discover'
 import { getSongUrl } from '@/api'
+// utils
+import { timeFormat as minutesSeconds } from '@/utils/dateFormat'
 // composition api
 import { onMounted, reactive, ref, toRefs } from '@vue/runtime-core'
 import { useStore } from 'vuex'
@@ -79,33 +81,49 @@ export default {
     })
 
     // 当前歌曲url
-    const songUrl = id => {
-      console.log(id);
-      getSongUrl(id).then(res => {
+    const songUrl = item => {
+      getSongUrl(item.id).then(res => {
         // emit('currentSongUrl', res.data[0].url)
         store.commit('user/newCurrentSongUrl', '')
         setTimeout(() => {
           store.commit('user/newCurrentSongUrl', res.data[0].url)
+          store.commit(
+            'user/addPlayerHistory',
+            {
+              id: item.id,
+              title: item.name,
+              singer: item.song.artists[0].name,
+              album: item.song.album.name,
+              time: timeFormat(item.song.duration),
+              isLike: false
+            }
+          )
         }, 0)
       })
     }
+
+    // 毫秒格式化
+    const timeFormat = val => minutesSeconds(val)
 
     // 获取轮播图
     getBannerData().then(res => {
       state.banner = res.banners
       console.log('轮播图', state.banner)
     })
+
     // 获取推荐歌单
     const data = { limit: 10 }
     getSongSheet(data).then(res => {
       state.songSheet = res.result
       console.log('推荐歌单', state.songSheet);
     })
+
     // 获取最新音乐（推荐排行）
     getNewSong(data).then(res => {
       state.newSong = res.result
       console.log('最新音乐（推荐排行）', state.newSong)
     })
+
     getRecommendMv().then(res => {
       state.recommendMv = res.result
       console.log('推荐MV', state.recommendMv)

@@ -33,7 +33,18 @@
           推荐MV
         </router-link>
       </li>
-      <li class="likes">
+      <li class="public">
+        <div class="category-title">
+          我的音乐
+        </div>
+        <router-link to="/history">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-lishi"></use>
+          </svg>
+          最近播放
+        </router-link>
+      </li>
+      <li class="public">
         <div class="category-title">
           创建的歌单
         </div>
@@ -90,8 +101,8 @@ export default {
       background-color: #e1e1e1;
     }
   }
-  // 我喜欢的音乐
-  .likes {
+  // 最近播放、我喜欢的音乐
+  .public {
     margin-top: 50px;
     .category-title{
       padding-left: 20px;
