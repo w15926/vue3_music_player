@@ -36,12 +36,6 @@ const routes = [
         meta: { title: '推荐MV' },
       },
       {
-        path: '/result',
-        name: 'result',
-        component: () => import('@/views/Result'),
-        meta: { title: '搜索结果' },
-      },
-      {
         path: '/history',
         name: 'history',
         component: () => import('@/views/History'),
@@ -52,6 +46,18 @@ const routes = [
         name: 'likes',
         component: () => import('@/views/Likes'),
         meta: { title: '我喜欢的音乐' },
+      },
+      {
+        path: '/result',
+        name: 'result',
+        component: () => import('@/views/Result'),
+        meta: { title: '搜索结果' },
+      },
+      {
+        path: '/musicDetail',
+        name: 'musicDetail',
+        component: () => import('@/views/MusicDetail'),
+        meta: { title: '歌单详情' },
       },
     ]
   },

@@ -18,3 +18,25 @@ export function getSongUrl(data) {
     }
   })
 }
+
+// 获取歌单详情
+export function musicDetail(data) {
+  return request({
+    url: 'playlist/detail',
+    method: 'get',
+    params: {
+      id: data
+    }
+  })
+}
+
+// 获取歌曲详情
+export function songDetail(data) {
+  return request({
+    url: '/song/detail',
+    method: 'get',
+    params: {
+      ids: data
+    }
+  })
+}

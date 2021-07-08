@@ -27,7 +27,12 @@ const mutations = {
   // 删除当前我喜欢
   deleteLikesList(state, params) {
     state.likesList.forEach((item, index) => {
-      if (item.id === params) state.likesList.splice(index, 1)
+      if (item.id === params) {
+        state.likesList.splice(index, 1)
+        state.playerHistory.forEach(playerHistoryItem => {
+          if (playerHistoryItem.id === item.id) playerHistoryItem.isLike = false
+        })
+      }
     })
   },
   // 清空我喜欢

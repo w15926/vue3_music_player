@@ -39,8 +39,10 @@
 </template>
 
 <script>
+import { getSongUrl } from '@/api'
 import { onMounted, reactive, toRefs } from '@vue/runtime-core'
 import { useStore } from 'vuex'
+
 export default {
   setup() {
     let store = useStore()
@@ -61,7 +63,20 @@ export default {
     }
 
     // 播放
-    const getMusic = item => { }
+    const getMusic = item => getSongUrl(item.id).then(res => {
+      store.commit('user/newCurrentSongUrl', res.data[0].url)
+      store.commit(
+        'user/addPlayerHistory',
+        {
+          id: item.id,
+          title: item.title,
+          singer: item.singer,
+          album: item.album,
+          time: item.time,
+          isLike: item.isLike
+        }
+      )
+    })
 
     // 清除列表
     const clearAll = () => {

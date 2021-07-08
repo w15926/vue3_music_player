@@ -9,14 +9,14 @@
 import request from '@/utils/request'
 
 // 获取轮播图
-export function getBannerData() {
+export function bannerData() {
   return request({
     url: '/banner'
   })
 }
 
 // 获取推荐歌单
-export function getSongSheet(data) {
+export function songSheet(data) {
   return request({
     url: '/personalized',
     method: 'get',
@@ -24,8 +24,8 @@ export function getSongSheet(data) {
   })
 }
 
-// 获取推荐音乐
-export function getNewSong(data) {
+// 获取最新音乐（推荐排行）
+export function newMusic(data) {
   return request({
     url: '/personalized/newsong',
     method: 'get',
@@ -34,7 +34,7 @@ export function getNewSong(data) {
 }
 
 // 获取推荐mv
-export function getRecommendMv(data) {
+export function recommendMV(data) {
   return request({
     url: 'personalized/mv'
   })

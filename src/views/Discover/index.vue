@@ -15,7 +15,7 @@
     <!-- 推荐歌单 -->
     <div class="rMusic-box">
       <p class="title">推荐歌单</p>
-      <div class="rMusic" v-for="item in songSheet" :key="item.id">
+      <div class="rMusic" v-for="item in songSheet" :key="item.id" @click="goDetail(item.id)">
         <div class="rMusic-img">
           <img :src="item.picUrl" alt="">
         </div>
@@ -61,77 +61,100 @@
 
 <script>
 // request api
-import { getBannerData, getSongSheet, getNewSong, getRecommendMv } from '@/api/discover'
+import { bannerData, songSheet, newMusic, recommendMV } from '@/api/discover'
 import { getSongUrl } from '@/api'
 // utils
 import { timeFormat as minutesSeconds } from '@/utils/dateFormat'
 // composition api
 import { onMounted, reactive, ref, toRefs } from '@vue/runtime-core'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'discover',
   setup(props, { emit }) {
+    let router = useRouter()
     let store = useStore()
     let state = reactive({
       banner: [], // 轮播图
       songSheet: [], // 推荐歌单
       newSong: [], // 最新音乐（推荐排行）
-      recommendMv: [] // 推荐mv
+      recommendMv: [], // 推荐mv
+      requestLimit: { limit: 10 }
     })
 
-    // 当前歌曲url
+    // 播放
     const songUrl = item => {
       getSongUrl(item.id).then(res => {
-        // emit('currentSongUrl', res.data[0].url)
-        store.commit('user/newCurrentSongUrl', '')
-        setTimeout(() => {
-          store.commit('user/newCurrentSongUrl', res.data[0].url)
-          store.commit(
-            'user/addPlayerHistory',
-            {
-              id: item.id,
-              title: item.name,
-              singer: item.song.artists[0].name,
-              album: item.song.album.name,
-              time: timeFormat(item.song.duration),
-              isLike: false
-            }
-          )
-        }, 0)
+        store.commit('user/newCurrentSongUrl', res.data[0].url)
+        store.commit(
+          'user/addPlayerHistory',
+          {
+            id: item.id,
+            title: item.name,
+            singer: item.song.artists[0].name,
+            album: item.song.album.name,
+            time: timeFormat(item.song.duration),
+            isLike: false
+          }
+        )
       })
     }
 
     // 毫秒格式化
     const timeFormat = val => minutesSeconds(val)
 
-    // 获取轮播图
-    getBannerData().then(res => {
-      state.banner = res.banners
-      console.log('轮播图', state.banner)
+    onMounted(() => {
+      getBanner()
+      getSongSheet()
+      getNewMusic()
+      getRecommendMV()
     })
+
+    // 获取轮播图
+    const getBanner = () => {
+      bannerData().then(res => {
+        state.banner = res.banners
+        console.log('轮播图', state.banner)
+      })
+    }
 
     // 获取推荐歌单
-    const data = { limit: 10 }
-    getSongSheet(data).then(res => {
-      state.songSheet = res.result
-      console.log('推荐歌单', state.songSheet);
-    })
+    const getSongSheet = () => {
+      songSheet(state.requestLimit).then(res => {
+        state.songSheet = res.result
+        console.log('推荐歌单', state.songSheet);
+      })
+    }
 
     // 获取最新音乐（推荐排行）
-    getNewSong(data).then(res => {
-      state.newSong = res.result
-      console.log('最新音乐（推荐排行）', state.newSong)
-    })
+    const getNewMusic = () => {
+      newMusic(state.requestLimit).then(res => {
+        state.newSong = res.result
+        console.log('最新音乐（推荐排行）', state.newSong)
+      })
+    }
 
-    getRecommendMv().then(res => {
-      state.recommendMv = res.result
-      console.log('推荐MV', state.recommendMv)
-    })
+    // 获取推荐MV
+    const getRecommendMV = () => {
+      recommendMV().then(res => {
+        state.recommendMv = res.result
+        console.log('推荐MV', state.recommendMv)
+      })
+    }
+
+    // 跳转歌单详情
+    const goDetail = id => {
+      router.push({
+        path: '/musicDetail',
+        query: { id }
+      })
+    }
 
     return {
       ...toRefs(state),
-      songUrl
+      songUrl,
+      goDetail
     }
   }
 }

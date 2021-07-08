@@ -19,7 +19,7 @@
           </li>
           <li class="content" v-for="(item,index) in musicList" :key="item.id">
             <el-row>
-              <el-col :span="1" class="public index" @click="getMusic(item.id)">{{ ++index }}</el-col>
+              <el-col :span="1" class="public index" @click="getMusic(item)">{{ ++index }}</el-col>
               <el-col :span="1">
                 <svg class="icon" aria-hidden="true" v-if="!item.isLike" @click="addLike(item)">
                   <use xlink:href="#icon-aixin"></use>
@@ -28,10 +28,10 @@
                   <use xlink:href="#icon-aixin1"></use>
                 </svg>
               </el-col>
-              <el-col :span="11" class="p2" @click="getMusic(item.id)">{{ item.name }}</el-col>
-              <el-col :span="3" class="public p2" @click="getMusic(item.id)">{{ item.ar[0].name }}</el-col>
-              <el-col :span="4" class="public p2 al" @click="getMusic(item.id)">{{ item.al.name }}</el-col>
-              <el-col :span="3" class="public time" @click="getMusic(item.id)">{{ timeFormat(item.dt) }}</el-col>
+              <el-col :span="11" class="p2" @click="getMusic(item)">{{ item.name }}</el-col>
+              <el-col :span="3" class="public p2" @click="getMusic(item)">{{ item.ar[0].name }}</el-col>
+              <el-col :span="4" class="public p2 al" @click="getMusic(item)">{{ item.al.name }}</el-col>
+              <el-col :span="3" class="public time" @click="getMusic(item)">{{ timeFormat(item.dt) }}</el-col>
             </el-row>
           </li>
         </ul>
@@ -109,8 +109,21 @@ export default {
     const timeFormat = val => minutesSeconds(val)
 
     // 点击播放
-    const getMusic = id => {
-      getSongUrl(id).then(res => store.commit('user/newCurrentSongUrl', res.data[0].url))
+    const getMusic = item => {
+      getSongUrl(item.id).then(res => {
+        store.commit('user/newCurrentSongUrl', res.data[0].url)
+        store.commit(
+          'user/addPlayerHistory',
+          {
+            id: item.id,
+            title: item.name,
+            singer: item.ar[0].name,
+            album: item.al.name,
+            time: timeFormat(item.dt),
+            isLike: item.isLike
+          }
+        )
+      })
     }
 
     // 添加我喜欢
