@@ -89,7 +89,7 @@ export default {
         state.currentSheet = []
         state.songSheet = res.data
         state.currentSheet = state.songSheet.slice(0, 10)
-          state.loading = true
+        state.loading = true
       })
     }
 
@@ -98,12 +98,7 @@ export default {
 
     // 点击播放
     const songUrl = id => {
-      getSongUrl(id).then(res => {
-        store.commit('user/newCurrentSongUrl', '')
-        setTimeout(() => {
-          store.commit('user/newCurrentSongUrl', res.data[0].url)
-        }, 0);
-      })
+      getSongUrl(id).then(res => store.commit('user/newCurrentSongUrl', res.data[0].url))
     }
 
     // 加载更多
@@ -213,7 +208,7 @@ export default {
   }
   // 加载更多
   .loading {
-    margin: 20px 20px 20px 50%;
+    margin: 20px 20px 120px 50%;
     transform: translateX(-50%);
   }
 }

@@ -40,3 +40,12 @@ export function songDetail(data) {
     }
   })
 }
+
+// 所有评论 type: 0歌曲 1MV 2歌单 3专辑 4电台 5视频 /comment/hot?id=186016&type=0
+export function commentPlaylist(data) {
+  return request({
+    url: '/comment/playlist',
+    method: 'get',
+    params: data
+  })
+}

@@ -4,7 +4,8 @@ const getters = {
   newMusicCurrentIndex: state => state.user.newMusicCurrentIndex,
   newMVCurrentIndex: state => state.user.newMVCurrentIndex,
   likesList: state => state.user.likesList,
-  playerHistory: state => state.user.playerHistory
+  playerHistory: state => state.user.playerHistory,
+  getMvUrl: state => state.user.mvUrl
 }
 
 export default getters

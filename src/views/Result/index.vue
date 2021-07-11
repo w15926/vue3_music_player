@@ -95,14 +95,16 @@ export default {
     // 搜索
     function searchContent(val) {
       // const searchContent = val => { // 箭头函数无法在watch中使用
-      state.queryRequestParams.keywords = val
-      search(state.queryRequestParams).then(res => {
-        state.songCount = res.result.songCount
-        state.musicList = res.result.songs
-        state.pageSize = res.result.songs.length
-        matching()
-        console.log(res);
-      })
+      if (val) {
+        state.queryRequestParams.keywords = val
+        search(state.queryRequestParams).then(res => {
+          state.songCount = res.result.songCount
+          state.musicList = res.result.songs
+          state.pageSize = res.result.songs.length
+          matching()
+          console.log(res);
+        })
+      }
     }
 
     // 毫秒格式化
@@ -194,6 +196,7 @@ export default {
   box-sizing: border-box;
   padding: 20px;
   height: 700px;
+  margin-bottom: 800px;
 
   // 头部
   .header {

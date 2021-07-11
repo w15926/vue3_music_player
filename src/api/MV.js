@@ -32,3 +32,30 @@ export function wangYiRelease(data) {
     params: data
   })
 }
+
+// MV url
+export function mvUrl(id) {
+  return request({
+    url: '/mv/url',
+    method: 'get',
+    params: { id }
+  })
+}
+
+// 相关mv
+export function simiMv(mvid) {
+  return request({
+    url: '/simi/mv',
+    methodL: 'get',
+    params: { mvid }
+  })
+}
+
+// mv详情
+export function mvDetail(mvid) {
+  return request({
+    url: '/mv/detail',
+    method: 'get',
+    params: { mvid }
+  })
+}

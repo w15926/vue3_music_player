@@ -9,7 +9,7 @@
         </svg>
       </p>
       <div class="wrap">
-        <div class="detail" v-for="item in recMV" :key="item.id">
+        <div class="detail" v-for="item in recMV" :key="item.id" @click="playerMV(item)">
           <div class="play-count">
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-bofang"></use>
@@ -35,7 +35,7 @@
           @click="getCurrentMusic(index)">{{ item }}</span>
       </div>
       <div class="wrap">
-        <div class="detail" v-for="item in newMV" :key="item.id">
+        <div class="detail" v-for="item in newMV" :key="item.id" @click="playerMV(item)">
           <div class="play-count">
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-bofang"></use>
@@ -57,7 +57,7 @@
         </svg>
       </p>
       <div class="wrap">
-        <div class="detail" v-for="item in wangYiMV" :key="item.id">
+        <div class="detail" v-for="item in wangYiMV" :key="item.id" @click="playerMV(item)">
           <div class="play-count">
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-bofang"></use>
@@ -78,10 +78,12 @@ import { recommendMV, newMv, wangYiRelease } from '@/api/MV'
 import { playCount } from '@/utils/playCount'
 import { computed, onMounted, reactive, toRefs, watch } from '@vue/runtime-core'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'MVs',
   setup() {
+    let router = useRouter()
     let store = useStore()
     let state = reactive({
       recMV: [], // 推荐音乐
@@ -128,9 +130,25 @@ export default {
       })
     }
 
+    // 播放mv
+    const playerMV = item => {
+      console.log(item);
+      return router.push({
+        path: '/playerMV',
+        query: {
+          id: item.id,
+          name: item.name,
+          coverImg: item.cover,
+          picUrl: item.picUrl,
+          playCount:item.playCount
+        }
+      })
+    }
+
     return {
       ...toRefs(state),
-      getCurrentMusic
+      getCurrentMusic,
+      playerMV
     }
   }
 }
@@ -202,6 +220,9 @@ export default {
       }
     }
     @include categoryTag;
+  }
+  .wangyi-mv {
+    margin-bottom: 100px;
   }
 }
 </style>

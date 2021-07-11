@@ -24,13 +24,14 @@ export default {
   height: 50px;
   background-color: #fff;
   box-sizing: border-box;
-  box-shadow: 0 -1px 2px rgba($color: #000000, $alpha: 0.1);
+  box-shadow: 0 -1px 2px rgba($color: #000000, $alpha: 0.2);
   overflow: hidden;
-  z-index: 999;
+  z-index: 9999;
   audio {
     width: 100%;
     height: 100%;
     outline: none;
+    background-color: #fff;
     // filter: invert(180); //c3 filter(滤镜) 属性
   }
 

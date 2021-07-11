@@ -74,7 +74,7 @@ export default {
 
 .box-sidebar {
   width: 200px;
-  height: 700px;
+  height: 600px;
   box-sizing: border-box;
   background-color: #ededed;
 

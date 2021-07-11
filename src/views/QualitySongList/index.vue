@@ -23,7 +23,7 @@
     </div>
 
     <div class="category-detail">
-      <div class="detail-wrap" v-for="item in currentSongSheet" :key="item.id">
+      <div class="detail-wrap" v-for="item in currentSongSheet" :key="item.id" @click="goDetail(item.id)">
         <div class="detail-img"><img :src="item.coverImgUrl" alt=""></div>
         <p>{{ item.name }}</p>
       </div>
@@ -44,6 +44,7 @@ import { computed, onMounted, reactive, toRefs } from '@vue/runtime-core'
 import { useStore } from 'vuex'
 
 import Pagination from '@/components/Pagination'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'playlists',
@@ -51,7 +52,8 @@ export default {
     Pagination
   },
   setup() {
-    const store = useStore()
+    let router = useRouter()
+    let store = useStore()
     let state = reactive({
       banner: [],
       tags: ['全部', '华语', '粤语', '摇滚', '民谣', '电子', '轻音乐', '影视原声', 'ACG'],
@@ -103,10 +105,19 @@ export default {
         .then(res => state.banner = res.playlists[0])
     }
 
+    // 跳转歌单详情
+    const goDetail = id => {
+      router.push({
+        path: '/musicDetail',
+        query: { id }
+      })
+    }
+
     return {
       ...toRefs(state),
       getCurrentMusic,
-      handleCurrentChange
+      handleCurrentChange,
+      goDetail
     }
   }
 }
@@ -206,6 +217,7 @@ export default {
   .el-pagination {
     display: flex;
     justify-content: center;
+    margin-bottom: 100px;
   }
 }
 </style>

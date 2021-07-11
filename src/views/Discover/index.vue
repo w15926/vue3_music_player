@@ -299,7 +299,7 @@ export default {
   }
   // 推荐MV
   .rMv-box {
-    margin-top: 50px;
+    margin: 50px 0 100px 0;
     .rMv-wrap {
       display: flex;
       justify-content: space-around;

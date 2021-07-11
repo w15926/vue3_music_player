@@ -46,7 +46,7 @@ export default {
   .box-main {
     width: 1023px;
     box-sizing: border-box;
-    height: 700px;
+    height: 600px;
   }
 }
 </style>

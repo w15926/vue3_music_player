@@ -36,6 +36,12 @@ const routes = [
         meta: { title: '推荐MV' },
       },
       {
+        path: '/playerMV',
+        name: 'playerMV',
+        component: () => import('@/views/PlayerMV'),
+        meta: { title: '播放MV' },
+      },
+      {
         path: '/history',
         name: 'history',
         component: () => import('@/views/History'),

@@ -5,6 +5,7 @@ const state = {
   newMVCurrentIndex: 0, // 推荐音乐 --> 最新MV索引
   likesList: [], // 我喜欢的音乐
   playerHistory: [], // 最近播放
+  mvUrl: '',
 }
 
 const mutations = {
@@ -51,6 +52,9 @@ const mutations = {
   // 清空最近播放
   clearPlayerHistory(state) {
     state.playerHistory = []
+  },
+  getMvUrl(state, params) {
+    state.mvUrl = params
   }
 }
 
