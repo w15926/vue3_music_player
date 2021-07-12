@@ -93,9 +93,10 @@ export default {
           playCount: item.playCount
         }
       })
-      state.url = ''
-      getMvUrl(state.requestId)
-      getMvDetail(state.requestId)
+      setTimeout(() => {
+        getMvUrl(state.requestId)
+        getMvDetail(state.requestId)
+      }, 100);
     }
 
     return {
